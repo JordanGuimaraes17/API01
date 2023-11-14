@@ -1,22 +1,19 @@
 const { Router } = require('express')
 
 const MovieController = require('../controllers/MovieController')
+const ensureAuthenticated = require('../middlewares/ensureAuthenticated')
 
 const movieRoutes = Router()
 
-function myMiddleware(request, response, next) {
-  console.log('você passou pelo Middleware')
-  next()
-}
-
 const movieController = new MovieController()
+movieRoutes.use(ensureAuthenticated)
 
-movieRoutes.post('/:user_id', myMiddleware, movieController.create)
+movieRoutes.post('/', movieController.create)
 
-movieRoutes.get('/:id', myMiddleware, movieController.show)
+movieRoutes.get('/:id', movieController.show)
 
-movieRoutes.get('/', myMiddleware, movieController.index)
+movieRoutes.get('/', movieController.index)
 
-movieRoutes.delete('/:id', myMiddleware, movieController.delete)
+movieRoutes.delete('/:id', movieController.delete)
 
 module.exports = movieRoutes
