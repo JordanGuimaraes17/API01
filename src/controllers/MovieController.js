@@ -18,7 +18,9 @@ class MovieController {
       }
     })
     await knex('movie_tags').insert(tagsInsert)
-    response.json({ 'tudo certo': 'mensagem ou valor que você deseja enviar' })
+    return response.json({
+      'tudo certo': 'mensagem ou valor que você deseja enviar'
+    })
   }
 
   async show(request, response) {
