@@ -1,4 +1,5 @@
 const knex = require('../database/knex')
+
 class MovieController {
   async create(request, response) {
     const { title, description, rating, movie_tags } = request.body
