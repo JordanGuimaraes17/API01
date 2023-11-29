@@ -47,12 +47,12 @@ class MovieController {
     const user_id = request.user.id
     let movie
     if (movie_tags) {
-      const filterTags = movie_tags.split(',').map(tag => tag.trim())
+      const filterTags = movie_tags.split(',').map(tag => tag)
       movie = await knex('movie_tags')
         .select(['movie_notes.id', 'movie_notes.title', 'movie_notes.user_id'])
         .where('movie_notes.user_id', user_id)
         .whereLike('movie_notes.title', `%${title}%`)
-        .whereIn('name', filterTags)
+        .whereIn('movie_tags.name', filterTags)
         .innerJoin('movie_notes', 'movie_notes.id', 'movie_tags.movie_notes_id')
     } else {
       movie = await knex('movie_notes')
