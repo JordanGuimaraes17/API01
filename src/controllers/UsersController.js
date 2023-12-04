@@ -1,7 +1,6 @@
 const { hash, compare } = require('bcryptjs')
 const AppError = require('../utils/AppError')
 const sqliteConnection = require('../database/sqlite')
-
 class UserController {
   async create(request, response) {
     const { name, email, password } = request.body
@@ -19,11 +18,8 @@ class UserController {
       'INSERT INTO users (name, email,password) VALUES (?,?,?)',
       [name, email, hashedPassword]
     )
-    return response
-      .status(201)
-      .json({ 'tudo certo': 'mensagem ou valor que você deseja enviar' })
+    return response.status(201).json()
   }
-
   async update(request, response) {
     const { name, email, password, old_password } = request.body
     const user_id = request.user.id
@@ -65,9 +61,7 @@ class UserController {
       WHERE id = ?`,
       [user.name, user.email, user.password, user_id]
     )
-    return response.json({
-      'tudo certo': 'mensagem ou valor que você deseja enviar'
-    })
+    return response.json()
   }
 }
 
