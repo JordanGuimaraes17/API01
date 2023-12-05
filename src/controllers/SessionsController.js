@@ -9,8 +9,6 @@ class SessionsController {
     const { email, password } = request.body
 
     const user = await knex('users').where({ email }).first()
-    //using knex to access user table from database and locate the email from the request. first is to
-    // always get the first email found, and remember the pattern is to have just one email for each user
 
     if (!user) {
       throw new AppError('Incorrect e-mail or password', 401)
@@ -19,14 +17,12 @@ class SessionsController {
     const passwordMatched = await compare(password, user.password)
 
     if (!passwordMatched) {
-      throw new AppError('Incorrect e-mail or password', 401) // using same message to increase difficulty
-      // for someone to discover e-mails or passwords
+      throw new AppError('Incorrect e-mail or password', 401)
     }
 
     const { secret, expiresIn } = authConfig.jwt
     const token = sign({}, secret, {
-      // where is {} empty you can put payload properties
-      subject: String(user.id), // String to transform to text the user id (called parse)
+      subject: String(user.id),
       expiresIn
     })
 
