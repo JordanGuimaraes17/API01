@@ -46,6 +46,7 @@ class MovieController {
     let movie
     if (movie_tags) {
       const filterTags = movie_tags.split(',').map(tag => tag)
+
       movie = await knex('movie_tags')
         .select(['movie_notes.id', 'movie_notes.title', 'movie_notes.user_id'])
         .where('movie_notes.user_id', user_id)
