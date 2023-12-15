@@ -6,6 +6,7 @@ class DiskStorage {
   isValidExtension(file) {
     const allowedExtensions = ['.png', '.jpg', '.jpeg'] // Adicione as extensões permitidas aqui
     const extname = path.extname(file).toLowerCase()
+    console.log('Extensão do arquivo:', extname)
     return allowedExtensions.includes(extname)
   }
 
